@@ -8,14 +8,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useSearch } from '../context/SearchContext';
 
 const categories = [
-  { name: 'rajma', image: '/rajma.webp' },
-  { name: 'ghee', image: '/ghee.png' },
-  { name: 'rajma', image: '/rajma.webp' },
-  { name: 'pickle', image: '/ghee.png' },
-  { name: 'rajma', image: '/rajma.webp' },
-  { name: 'ghee', image: '/ghee.png' },
-  { name: 'rajma', image: '/rajma.webp' },
-  { name: 'ghee', image: '/ghee.png' },
+  { name: 'Kaladi', image: '/kaladi.png' },
+  { name: 'Ghee', image: '/ghee.png' },
+  { name: 'Anardana', image: '/anardana.png' },
+  { name: 'Aachar', image: '/achar.png' },
+  { name: 'Paneer', image: '/paneer.png' },
+  { name: 'Ghee', image: '/ghee.png' },
+  { name: 'Kaladi', image: '/kaladi.png' },
+  { name: 'Walnut', image: '/akrot.png' },
 ];
 
 const heroImages = ['/hero1.png', '/hero2.png'];
