@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { FaBox, FaRupeeSign, FaUsers, FaStar, FaFileCsv } from 'react-icons/fa';
-import AdminSupportMessages from '../components/AdminSupportMessage';
+import AdminSupportMessages from '../components/AdminSupportmessage';
 
 const AdminDashboard = () => {
   const [metrics, setMetrics] = useState(null);
