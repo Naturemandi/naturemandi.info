@@ -19,12 +19,15 @@ const categories = [
 ];
 
 const heroImages = ['/hero1.png', '/hero2.png'];
+const heroImagesMobile = ['/2.png', '/2.png'];
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const { searchTerm } = useSearch();
+
   useEffect(() => {
     fetchProducts()
       .then((res) => {
@@ -34,26 +37,33 @@ const Home = () => {
       .catch((err) => console.error(err));
   }, []);
 
-useEffect(() => {
-  let filtered = products;
+  useEffect(() => {
+    let filtered = products;
 
-  if (selectedCategory) {
-    filtered = filtered.filter(
-      (p) => p.category?.toLowerCase() === selectedCategory.toLowerCase()
-    );
-  }
+    if (selectedCategory) {
+      filtered = filtered.filter(
+        (p) => p.category?.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
 
-  if (searchTerm) {
-    filtered = filtered.filter(
-      (p) =>
-        p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (p) =>
+          p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.category?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-  setFilteredProducts(filtered);
-}, [searchTerm, selectedCategory, products]);
+    setFilteredProducts(filtered);
+  }, [searchTerm, selectedCategory, products]);
+
+  // 🔹 Track window resize to switch hero images
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleCategoryClick = (category) => {
     if (category === selectedCategory) {
@@ -93,23 +103,23 @@ useEffect(() => {
       {/* Hero Slider */}
       <section className="relative">
         <Slider {...heroSettings}>
-          {heroImages.map((img, i) => (
+          {(isMobile ? heroImagesMobile : heroImages).map((img, i) => (
             <div key={i} className="relative h-[300px] md:h-[450px] w-full">
               <img
                 src={img}
                 alt={`slide-${i}`}
-                className="w-full h-full object-fit shadow-lg"
+                className="w-full h-full object-cover shadow-lg"
               />
-              <div className="absolute bottom-6 left-40 flex gap-4">
+              <div className="absolute bottom-6 left-6 md:left-40 flex gap-4">
                 <Link
                   to="/about"
-                  className="bg-white text-gray-800 px-4 py-2 rounded-full text-sm font-medium shadow hover:bg-gray-100"
+                  className="bg-white text-gray-800 px-3 py-2 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium shadow hover:bg-gray-100"
                 >
                   About Us →
                 </Link>
                 <Link
                   to="/products"
-                  className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow hover:bg-green-700"
+                  className="bg-green-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium shadow hover:bg-green-700"
                 >
                   Products →
                 </Link>
@@ -154,21 +164,6 @@ useEffect(() => {
           <p className="text-center text-gray-500">No products found in this category.</p>
         )}
       </section>
-
-      {/* Testimonials */}
-      {/* <section className="bg-gray-50 py-12 px-6">
-        <h2 className="text-2xl font-semibold text-center mb-8">What Our Customers Say</h2>
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 text-center">
-          <div className="bg-white p-6 rounded-2xl shadow-lg">
-            <p className="italic text-gray-700">"Fantastic quality products!"</p>
-            <p className="font-semibold mt-2 text-green-700">— Asha</p>
-          </div>
-          <div className="bg-white p-6 rounded-2xl shadow-lg">
-            <p className="italic text-gray-700">"Fast delivery and fresh items."</p>
-            <p className="font-semibold mt-2 text-green-700">— Ravi</p>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };

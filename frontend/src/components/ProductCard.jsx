@@ -80,23 +80,27 @@ const ProductCard = ({ product }) => {
   return (
     <Link
       to={`/products/${product._id}`}
-      className="border rounded-lg p-4 shadow hover:shadow-md transition block"
+      className="border rounded-lg p-3 sm:p-4 shadow hover:shadow-md transition block w-full"
     >
       <img
         src={productImage}
         alt={product.name}
-        className="w-full h-70 object-cover mb-2 rounded"
+        className="w-full h-32 sm:h-48 md:h-60 object-cover mb-2 rounded"
       />
-      <h2 className="text-lg font-semibold">{product.name}</h2>
-      <p className="text-gray-500 text-sm capitalize">{product.category}</p>
-      <p className="font-bold text-green-600 mt-1">₹{product.price}</p>
+      <h2 className="text-sm sm:text-lg font-semibold line-clamp-1">{product.name}</h2>
+      <p className="text-gray-500 text-xs sm:text-sm capitalize">{product.category}</p>
+      <p className="font-bold text-green-600 mt-1 text-sm sm:text-base">
+        ₹{product.price}
+      </p>
 
       <div className="flex gap-2 mt-2">
         <button
           onClick={(e) => handleAddToCart(e)}
           disabled={inCart}
-          className={`flex-1 py-1 rounded text-white font-semibold ${
-            inCart ? 'bg-gray-400 cursor-not-allowed' : 'bg-yellow-500 hover:bg-yellow-600'
+          className={`flex-1 py-1 text-xs sm:text-sm rounded text-white font-semibold ${
+            inCart
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-yellow-500 hover:bg-yellow-600'
           }`}
         >
           {inCart ? 'In Cart' : 'Add to Cart'}
@@ -104,8 +108,10 @@ const ProductCard = ({ product }) => {
 
         <button
           onClick={(e) => handleAddToCart(e, true)}
-          className={`flex-1 py-1 rounded text-white font-semibold ${
-            inCart ? 'bg-blue-600 hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'
+          className={`flex-1 py-1 text-xs sm:text-sm rounded text-white font-semibold ${
+            inCart
+              ? 'bg-blue-600 hover:bg-blue-700'
+              : 'bg-green-600 hover:bg-green-700'
           }`}
         >
           {inCart ? 'Go to Cart' : 'Buy Now'}
