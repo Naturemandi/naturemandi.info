@@ -9,7 +9,7 @@ const AdminSupportMessages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await api.get('/support/admin', { headers: { Authorization: `Bearer ${token}` } });
+        const response = await api.get('/api/support/admin', { headers: { Authorization: `Bearer ${token}` } });
         setMessages(response.data);
       } catch (error) {
         console.error('Error fetching messages:', error);

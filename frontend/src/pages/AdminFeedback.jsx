@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { Trash2 } from 'lucide-react'; // Optional: Icon for delete
 
 const AdminFeedback = () => {
@@ -9,7 +9,7 @@ const AdminFeedback = () => {
 
   const fetchFeedback = async () => {
     try {
-      const res = await axios.get('/api/feedback/admin/all', {
+      const res = await api.get('/api/feedback/admin/all', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFeedbacks(res.data);
@@ -27,7 +27,7 @@ const AdminFeedback = () => {
     if (!window.confirm('Are you sure you want to delete this feedback?')) return;
 
     try {
-      await axios.delete(`/api/feedback/admin/${id}`, {
+      await api.delete(`/api/feedback/admin/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFeedbacks((prev) => prev.filter((f) => f._id !== id));

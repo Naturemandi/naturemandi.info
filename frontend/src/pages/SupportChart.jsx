@@ -24,7 +24,7 @@ const handleSend = async () => {
   try {
     const token = localStorage.getItem('token');
     await api.post(
-      '/support',
+      '/api/support',
       { text: input.trim() },
       {
         headers: {

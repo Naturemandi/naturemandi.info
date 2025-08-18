@@ -9,7 +9,7 @@ const AdminReviews = () => {
 
   const fetchReviews = async () => {
     try {
-      const res = await api.get('/reviews/admin/all', {
+      const res = await api.get('/api/reviews/admin/all', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,7 +25,7 @@ const AdminReviews = () => {
     if (!window.confirm('Are you sure you want to delete this review?')) return;
 
     try {
-      await api.delete(`/reviews/admin/${reviewId}`, {
+      await api.delete(`/api/reviews/admin/${reviewId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ const AdminReviews = () => {
 
   const exportCSV = async () => {
     try {
-      const res = await api.get('/reviews/admin/export', {
+      const res = await api.get('/api/reviews/admin/export', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

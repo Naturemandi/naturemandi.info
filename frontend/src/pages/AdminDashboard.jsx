@@ -16,9 +16,9 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const [metricsRes, ordersRes, feedbacksRes] = await Promise.all([
-          api.get('/admin/metrics', { headers: { Authorization: `Bearer ${token}` } }),
-          api.get('/admin/orders', { headers: { Authorization: `Bearer ${token}` } }),
-          api.get('/reviews/admin/all', { headers: { Authorization: `Bearer ${token}` } }),
+          api.get('/api/admin/metrics', { headers: { Authorization: `Bearer ${token}` } }),
+          api.get('/api/admin/orders', { headers: { Authorization: `Bearer ${token}` } }),
+          api.get('/api/reviews/admin/all', { headers: { Authorization: `Bearer ${token}` } }),
         ]);
 
         setMetrics(metricsRes.data);
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
 
   const handleExportOrdersCSV = async () => {
     try {
-      const res = await api.get('/admin/orders/export', {
+      const res = await api.get('/api/admin/orders/export', {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });

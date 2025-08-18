@@ -21,7 +21,7 @@ const AdminProducts = () => {
   const token = localStorage.getItem('token');
 
   const fetchProducts = async () => {
-    const res = await api.get('/products');
+    const res = await api.get('/api/products');
     // Defensive: always use array
     const productsArray = Array.isArray(res.data)
       ? res.data
@@ -60,7 +60,7 @@ const AdminProducts = () => {
     formData.append('image', file);
 
     try {
-      const res = await api.post('/upload/product-image', formData, {
+      const res = await api.post('/api/upload/product-image', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       return res.data.url;
@@ -117,11 +117,11 @@ const handleSubmit = async (e) => {
 };
 
     if (editingProduct) {
-      await api.put(`/products/${editingProduct}`, productData, {
+      await api.put(`/api/products/${editingProduct}`, productData, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } else {
-      await api.post('/products', productData, {
+      await api.post('/api/products', productData, {
         headers: { Authorization: `Bearer ${token}` },
       });
     }
@@ -136,7 +136,7 @@ const handleSubmit = async (e) => {
   const deleteProduct = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
     try {
-      await api.delete(`/products/${id}`, {
+      await api.delete(`/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchProducts();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchResults = () => {
@@ -13,7 +13,7 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('/api/products', {
+        const res = await api.get('/api/products', {
           params: { search, category },
         });
         setProducts(res.data);

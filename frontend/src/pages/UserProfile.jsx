@@ -23,7 +23,7 @@ const UserProfile = () => {
 
 const fetchUserData = async () => {
   try {
-    const res = await api.get('/auth/me', headers);
+    const res = await api.get('/api/auth/me', headers);
     setUser(res.data);
     setEditInfo({ name: res.data.name || '', email: res.data.email || '' });
     setAddresses(res.data.addresses || []);
@@ -34,7 +34,7 @@ const fetchUserData = async () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await api.get('/orders/my', headers);
+      const res = await api.get('/api/orders/my', headers);
       setOrders(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error('Error fetching orders:', err);
@@ -43,7 +43,7 @@ const fetchUserData = async () => {
 
 const saveProfile = async () => {
   try {
-    await api.put('/auth/me', editInfo, headers);
+    await api.put('/api/auth/me', editInfo, headers);
     alert('Profile updated!');
     setShowProfileModal(false);
     fetchUserData();
@@ -60,7 +60,7 @@ const saveAddress = async () => {
     updated.push(editAddress);
   }
   try {
-    await api.put('/auth/addresses', { addresses: updated }, headers);
+    await api.put('/api/auth/addresses', { addresses: updated }, headers);
     alert('Addresses updated!');
     setShowAddressModal(false);
     setEditAddress({ label: '', address: '', city: '', state: '', pin: '', altPhone: '' });
@@ -78,7 +78,7 @@ const saveAddress = async () => {
 
   const cancelOrder = async (orderId) => {
     try {
-      await api.put(`/orders/cancel/${orderId}`, {}, headers);
+      await api.put(`/api/orders/cancel/${orderId}`, {}, headers);
       alert('Order cancelled.');
       fetchOrders();
     } catch (err) {

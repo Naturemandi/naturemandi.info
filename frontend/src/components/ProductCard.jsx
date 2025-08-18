@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const res = await api.get('/cart', {
+        const res = await api.get('/api/cart', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
 
     try {
       const res = await api.post(
-        '/cart/add',
+        '/api/cart/add',
         {
           productId: product._id,
           quantity: 1,

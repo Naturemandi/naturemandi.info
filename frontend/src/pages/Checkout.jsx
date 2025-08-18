@@ -26,8 +26,8 @@ const Checkout = () => {
     const fetchData = async () => {
       try {
         const [cartRes, profileRes] = await Promise.all([
-          api.get('/cart', { headers: { Authorization: `Bearer ${token}` } }),
-          api.get('/auth/profile', { headers: { Authorization: `Bearer ${token}` } })
+          api.get('/api/cart', { headers: { Authorization: `Bearer ${token}` } }),
+          api.get('/api/auth/profile', { headers: { Authorization: `Bearer ${token}` } })
         ]);
 
         setCart(cartRes.data.items || []);
@@ -61,7 +61,7 @@ const Checkout = () => {
 
   const handleApplyCoupon = async () => {
     try {
-      const res = await api.post('/coupons/apply', { code: couponCode }, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await api.post('/api/coupons/apply', { code: couponCode }, { headers: { Authorization: `Bearer ${token}` } });
       setDiscount(res.data.discount);
       setCouponMessage(res.data.msg);
     } catch (err) {
@@ -80,7 +80,7 @@ const placeOrder = async (isOnlinePayment = false) => {
 
   try {
     const res = await api.post(
-      '/orders/place',
+      '/api/orders/place',
       { shippingAddress: shipping, couponCode, paymentMethod },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -92,7 +92,7 @@ const placeOrder = async (isOnlinePayment = false) => {
 
   const handlePayment = async () => {
     try {
-      const { data: order } = await api.post('/payment/create-order', { amount: total }, { headers: { Authorization: `Bearer ${token}` } });
+      const { data: order } = await api.post('/api/payment/create-order', { amount: total }, { headers: { Authorization: `Bearer ${token}` } });
 
       const options = {
         key: import.meta.env.VITE_REACT_APP_RAZORPAY_KEY_ID,
@@ -102,9 +102,9 @@ const placeOrder = async (isOnlinePayment = false) => {
         description: 'Purchase from NatureMandi',
         order_id: order.id,
         handler: async (response) => {
-          const res = await api.post('/payment/verify', response, { headers: { Authorization: `Bearer ${token}` } });
+          const res = await api.post('/api/payment/verify', response, { headers: { Authorization: `Bearer ${token}` } });
           if (res.data.success) {
-            await api.post('/orders/place', { shippingAddress: shipping, couponCode, paymentMethod: 'Online' }, { headers: { Authorization: `Bearer ${token}` } });
+            await api.post('/api/orders/place', { shippingAddress: shipping, couponCode, paymentMethod: 'Online' }, { headers: { Authorization: `Bearer ${token}` } });
             navigate('/success', { state: { orderId: orderRes.data._id } });
           } else {
             alert('Payment verification failed');

@@ -15,7 +15,7 @@ const Cart = () => {
       setLoading(true);
       try {
         if (token) {
-          const res = await api.get('/cart', {
+          const res = await api.get('/api/cart', {
             headers: { Authorization: `Bearer ${token}` },
           });
           setCartItems(res.data.items || []);
@@ -37,7 +37,7 @@ const handleRemove = async (productId) => {
   console.log('Removing productId:', productId);
   try {
     if (token) {
-      await api.delete(`/cart/remove/${productId}`, {
+      await api.delete(`/api/cart/remove/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
     }
@@ -69,7 +69,7 @@ const updateQuantity = async (productId, newQty) => {
 
     if (token) {
       await api.put(
-        `/cart/update/${productId}`,
+        `/api/cart/update/${productId}`,
         { quantity: newQty },
         { headers: { Authorization: `Bearer ${token}` } }
       );

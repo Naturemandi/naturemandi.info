@@ -28,7 +28,7 @@ const ProductDetail = () => {
 
   const fetchProductDetails = async () => {
     try {
-      const res = await api.get(`/products/${id}`);
+      const res = await api.get(`/api/products/${id}`);
       setProduct(res.data);
       setReviews(res.data.reviews || []);
       setSelectedImage(res.data.images?.[0] || res.data.imageUrl || '/placeholder.png');
@@ -40,7 +40,7 @@ const ProductDetail = () => {
 
   const fetchRelatedProducts = async () => {
     try {
-      const res = await api.get(`/products`);
+      const res = await api.get(`/api/products`);
       const filtered = res.data.filter(p => p._id !== id).slice(0, 3);
       setRelated(filtered);
     } catch (err) {
@@ -53,7 +53,7 @@ const ProductDetail = () => {
     setLoading(true);
     try {
       await api.post(
-        '/cart/add',
+        '/api/cart/add',
         { productId: product._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -77,7 +77,7 @@ const ProductDetail = () => {
 
     try {
      await api.post(
-  `/reviews/${id}`,
+  `/api/reviews/${id}`,
   {
     rating,
     comment,

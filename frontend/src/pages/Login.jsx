@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import axios from 'axios';
+import api from '../services/api';
 
 const Login = () => {
   const [phone, setPhone] = useState('');
@@ -52,7 +52,7 @@ const Login = () => {
       const result = await window.confirmationResult.confirm(otp);
       const idToken = await result.user.getIdToken();
 
-      const res = await axios.post('http://localhost:5000/api/auth/verify-firebase-otp', {
+      const res = await api.post('/api/auth/verify-firebase-otp', {
         idToken
       });
 

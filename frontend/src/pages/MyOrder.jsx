@@ -22,7 +22,7 @@ const MyOrders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await api.get('/orders/my', {
+      const res = await api.get('/api/orders/my', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(Array.isArray(res.data) ? res.data.reverse() : []);
@@ -40,7 +40,7 @@ const MyOrders = () => {
     if (!confirmCancel) return;
 
     try {
-      await api.delete(`/orders/${orderId}/cancel`, {
+      await api.delete(`/api/orders/${orderId}/cancel`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('Order cancelled successfully');
@@ -121,7 +121,7 @@ const handleDownloadInvoice = (order) => {
     { align: "center" }
   );
   doc.text(
-    "For queries, contact support@naturemandi.com",
+    "For queries, contact naturemandi.info@gmail.com",
     105,
     292,
     { align: "center" }
@@ -140,7 +140,7 @@ const handleDownloadInvoice = (order) => {
 
     try {
       await api.post(
-        '/feedback',
+        '/api/feedback',
         { orderId: showFeedback, rating, message },
         { headers: { Authorization: `Bearer ${token}` } }
       );

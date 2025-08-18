@@ -8,7 +8,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await api.get('/products');
+        const res = await api.get('/api/products');
         const data = res.data;
 
         const grouped = {};

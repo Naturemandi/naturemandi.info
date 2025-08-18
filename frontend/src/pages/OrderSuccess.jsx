@@ -22,7 +22,7 @@ const OrderSuccess = () => {
   useEffect(() => {
     if (!orderId) return;
     const token = localStorage.getItem('token');
-    api.get(`/orders/${orderId}`, {
+    api.get(`/api/orders/${orderId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => setOrder(res.data))

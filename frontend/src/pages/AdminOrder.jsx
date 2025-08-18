@@ -8,7 +8,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await api.get('/orders/all', {
+      const res = await api.get('/api/orders/all', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -24,7 +24,7 @@ const AdminOrders = () => {
 
   const handleMarkDelivered = async (orderId) => {
     try {
-      const res = await api.put(`/orders/${orderId}/deliver`, {}, {
+      const res = await api.put(`/api/orders/${orderId}/deliver`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success(res.data.msg || 'Marked as delivered');
