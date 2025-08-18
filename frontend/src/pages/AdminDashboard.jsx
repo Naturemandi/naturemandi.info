@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { FaBox, FaRupeeSign, FaUsers, FaStar, FaFileCsv } from 'react-icons/fa';
-import AdminSupportMessage from '../components/AdminSupportMessage';
+import AdminSupportMessages from '../components/AdminSupportMessage';
 
 const AdminDashboard = () => {
   const [metrics, setMetrics] = useState(null);
@@ -144,7 +144,7 @@ const AdminDashboard = () => {
       </section>
 
       <div>
-        <AdminSupportMessage />
+        <AdminSupportMessages />
       </div>
     </div>
   );
