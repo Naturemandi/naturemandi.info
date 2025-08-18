@@ -23,7 +23,14 @@ app.use(morgan('dev'));
 
 // CORS Setup
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'https://naturemandi-info.vercel.app',
+    'https://www.naturemandi.com',
+    'https://naturemandi.com',
+    'https://www.naturemandi.in',
+    'https://naturemandi.in'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
