@@ -8,14 +8,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useSearch } from '../context/SearchContext';
 
 const categories = [
-  { name: 'Kaladi', image: '/kaladi.png' },
-  { name: 'Ghee', image: '/ghee.png' },
-  { name: 'Anardana', image: '/anardana.png' },
-  { name: 'Aachar', image: '/achar.png' },
-  { name: 'Paneer', image: '/paneer.png' },
-  { name: 'Ghee', image: '/ghee.png' },
-  { name: 'Kaladi', image: '/kaladi.png' },
-  { name: 'Walnut', image: '/akrot.png' },
+  { name: 'rajma', image: '/rajma.webp' },
+  { name: 'ghee', image: '/ghee.png' },
+  { name: 'rajma', image: '/rajma.webp' },
+  { name: 'pickle', image: '/ghee.png' },
+  { name: 'rajma', image: '/rajma.webp' },
+  { name: 'ghee', image: '/ghee.png' },
+  { name: 'rajma', image: '/rajma.webp' },
+  { name: 'ghee', image: '/ghee.png' },
 ];
 
 const heroImages = ['/hero1.png', '/hero2.png'];
@@ -74,7 +74,7 @@ const Home = () => {
   };
 
   const heroSettings = {
-    dots: true,
+    // dots: true,
     infinite: true,
     speed: 800,
     slidesToShow: 1,
@@ -93,13 +93,13 @@ const Home = () => {
     arrows: true,
     slidesToScroll: 2,
     responsive: [
-      { breakpoint: 768, settings: { slidesToShow: 3 } },
-      { breakpoint: 480, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 4 } },
     ],
   };
 
   return (
-    <div className="text-gray-800 overflow-hidden ">
+    <div className="text-gray-800 overflow-hidden">
       {/* Hero Slider */}
       <section className="relative">
         <Slider {...heroSettings}>
@@ -130,27 +130,33 @@ const Home = () => {
       </section>
 
       {/* Category Slider */}
-      <section className="pt-4 pl-10 pr-10 px-4 bg-[#800000] text-white shadow-lg border-b border-gray-200">
+      <section className="pl-10 pr-10 px-4 bg-[#800000] text-white shadow-lg border-b border-gray-200">
         <Slider {...categorySettings}>
           {categories.map((cat, i) => (
             <div
               key={i}
               className={`text-center p-4 cursor-pointer transition-transform duration-300 hover:scale-105 ${
-                selectedCategory === cat.name ? 'bg-[#80000f] border-2 border-gray-200 rounded-xl ' : ''
+                selectedCategory === cat.name
+                  ? 'bg-[#80000f] border-2 border-gray-200 rounded-xl '
+                  : ''
               }`}
               onClick={() => handleCategoryClick(cat.name)}
             >
-              <div className="w-15 h-15 mx-auto rounded-full overflow-hidden border shadow-md mb-2">
-                <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
+              <div className="w-6 h-6 sm:w-15 sm:h-15 mx-auto rounded-full overflow-hidden border shadow-md">
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <p className="font-medium text-sm">{cat.name}</p>
+              <p className="font-medium text-xs sm:text-sm">{cat.name}</p>
             </div>
           ))}
         </Slider>
       </section>
 
       {/* Product Grid */}
-      <section className="px-6 py-8 bg-white max-w-8xl mx-auto">    
+      <section className="px-6 py-8 bg-white max-w-8xl mx-auto">
         <h2 className="text-2xl text-center font-semibold mb-8">
           {selectedCategory ? `${selectedCategory} Products` : 'Featured Products'}
         </h2>
@@ -161,7 +167,9 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500">No products found in this category.</p>
+          <p className="text-center text-gray-500">
+            No products found in this category.
+          </p>
         )}
       </section>
     </div>
