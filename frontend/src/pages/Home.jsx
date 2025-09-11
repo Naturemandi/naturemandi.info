@@ -135,14 +135,14 @@ const Home = () => {
           {categories.map((cat, i) => (
             <div
               key={i}
-              className={`text-center p-4 cursor-pointer transition-transform duration-300 hover:scale-105 ${
+              className={`text-center p-2 cursor-pointer transition-transform duration-300 hover:scale-105 ${
                 selectedCategory === cat.name
                   ? 'bg-[#80000f] border-2 border-gray-200 rounded-xl '
                   : ''
               }`}
               onClick={() => handleCategoryClick(cat.name)}
             >
-              <div className="w-6 h-6 sm:w-15 sm:h-15 mx-auto rounded-full overflow-hidden border shadow-md">
+              <div className="w-8 h-8 sm:w-15 sm:h-15 mx-auto rounded-full overflow-hidden border shadow-md">
                 <img
                   src={cat.image}
                   alt={cat.name}
@@ -156,8 +156,8 @@ const Home = () => {
       </section>
 
       {/* Product Grid */}
-      <section className="px-6 py-8 bg-white max-w-8xl mx-auto">
-        <h2 className="text-2xl text-center font-semibold mb-8">
+      <section className="px-2 py-4 bg-white max-w-8xl mx-auto">
+        <h2 className="text-2xl text-center font-semibold mb-4">
           {selectedCategory ? `${selectedCategory} Products` : 'Featured Products'}
         </h2>
         {filteredProducts.length > 0 ? (
