@@ -43,119 +43,116 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
-      <div className="flex items-center justify-between max-w-7xl mx-auto px-4">
+      <div className="flex items-center gap-2 px-2 md:px-4 max-w-7xl mx-auto py-2">
         
-        {/* Left - Logo */}
-        <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-          <img src="/logo.png" alt="NatureMandi" className="h-20" />
+        {/* Logo - show small logo on mobile */}
+        <Link to="/" className="flex-shrink-0">
+          {/* Small logo for mobile */}
+          <img
+            src="/logo1.png"
+            alt="NatureMandi"
+            className="h-8 w-auto block md:hidden"
+          />
+          {/* Larger logo for tablet+ */}
+          <img
+            src="/logo.png"
+            alt="NatureMandi"
+            className="h-12 w-auto hidden md:block"
+          />
         </Link>
 
-        {/* Center - Search (hidden on mobile) */}
-        <div className="hidden md:flex flex-grow max-w-2xl mx-6">
+        {/* Search Bar - takes most space */}
+        <div className="flex flex-grow max-w-xs sm:max-w-sm md:max-w-md lg:max-w-xl">
           <div className="flex w-full rounded-md overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-green-500">
             <input
               type="text"
-              placeholder="Search Desi Rajma, Pickles, Spices..."
+              placeholder="Search..."
               value={searchText}
               onChange={handleSearch}
-              className="flex-grow px-3 py-2 outline-none text-sm"
+              className="flex-grow px-2 py-1 text-sm outline-none"
             />
-            <div className="bg-green-600 text-white px-4 py-2 flex items-center justify-center">
-              <FiSearch size={18} />
+            <div className="bg-green-600 text-white px-3 py-2 flex items-center justify-center">
+              <FiSearch size={16} />
             </div>
           </div>
         </div>
 
-        {/* Right - Cart & Profile */}
-        <div className="flex items-center gap-4 text-sm text-gray-700">
-          <Link to="/cart" className="relative hover:text-green-600 flex items-center gap-1">
-            <FaShoppingCart />
-            <span className="hidden sm:inline">Cart</span>
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
-                {cartCount}
-              </span>
-            )}
-          </Link>
-
-          {user ? (
-            <div className="relative">
-              <button
-                onClick={() => setShowDropdown(!showDropdown)}
-                className="hover:text-green-600 flex items-center gap-1"
-              >
-                <FaUserCircle size={20} />
-                <span className="hidden sm:inline">
-                  {user.name?.split(' ')[0] || 'Profile'}
-                </span>
-              </button>
-
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 w-44 bg-white border shadow-lg rounded-md z-50">
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    <FaUser /> My Profile
-                  </Link>
-                  <Link
-                    to="/orders"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    <FaBoxOpen /> Orders
-                  </Link>
-                  <Link
-                    to="/support"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    <FaHeadset /> Support
-                  </Link>
-                  {isAdmin && (
-                    <Link
-                      to="/admin/dashboard"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2 text-yellow-600"
-                      onClick={() => setShowDropdown(false)}
-                    >
-                      <FaUserShield /> Admin Panel
-                    </Link>
-                  )}
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2"
-                  >
-                    <FaSignOutAlt /> Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link
-              to="/login"
-              className="text-sm font-semibold text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded"
-            >
-              Login
-            </Link>
+        {/* Cart */}
+        <Link
+          to="/cart"
+          className="relative hover:text-green-600 flex items-center gap-1 text-sm flex-shrink-0"
+        >
+          <FaShoppingCart size={18} />
+          <span className="hidden sm:inline">Cart</span>
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
+              {cartCount}
+            </span>
           )}
-        </div>
-      </div>
+        </Link>
 
-      {/* Mobile - Search (visible only on small screens) */}
-      <div className="md:hidden px-4 pb-2">
-        <div className="flex w-full rounded-md overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-green-500">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchText}
-            onChange={handleSearch}
-            className="flex-grow px-3 py-2 outline-none text-sm"
-          />
-          <div className="bg-green-600 text-white px-4 py-2 flex items-center justify-center">
-            <FiSearch size={18} />
+        {/* Profile / Login */}
+        {user ? (
+          <div className="relative flex-shrink-0">
+            <button
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="hover:text-green-600 flex items-center gap-1 text-sm"
+            >
+              <FaUserCircle size={20} />
+              <span className="hidden sm:inline">
+                {user.name?.split(' ')[0] || 'Profile'}
+              </span>
+            </button>
+
+            {showDropdown && (
+              <div className="absolute right-0 mt-2 w-44 bg-white border shadow-lg rounded-md z-50">
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  <FaUser /> My Profile
+                </Link>
+                <Link
+                  to="/orders"
+                  className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  <FaBoxOpen /> Orders
+                </Link>
+                <Link
+                  to="/support"
+                  className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  <FaHeadset /> Support
+                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin/dashboard"
+                    className="block px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2 text-yellow-600"
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    <FaUserShield /> Admin Panel
+                  </Link>
+                )}
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2"
+                >
+                  <FaSignOutAlt /> Logout
+                </button>
+              </div>
+            )}
           </div>
-        </div>
+        ) : (
+          <Link
+            to="/login"
+            className="text-sm font-semibold text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-2 sm:px-3 py-1 rounded flex-shrink-0"
+          >
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );
